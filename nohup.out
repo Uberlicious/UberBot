@@ -1,0 +1,16 @@
+  File "bot.py", line 16
+    async def roll(ctx, number_of_dice: int, number_of_sides: int):
+        ^
+SyntaxError: invalid syntax
+  File "bot.py", line 16
+    async def roll(ctx, number_of_dice: int, number_of_sides: int):
+        ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "bot.py", line 7, in <module>
+    from dotenv import load_dotenv
+ModuleNotFoundError: No module named 'dotenv'
+Traceback (most recent call last):
+  File "bot.py", line 7, in <module>
+    from dotenv import load_dotenv
+ImportError: cannot import name 'load_dotenv' from 'dotenv' (/home/uber/.local/lib/python3.7/site-packages/dotenv/__init__.py)
