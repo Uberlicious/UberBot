@@ -4,7 +4,9 @@ import requests
 import json
 import logging
 import time
+import os
 from datetime import datetime
+from dotenv import load_dotenv
 
 import nextcord
 from nextcord import Interaction, SlashOption
@@ -418,6 +420,8 @@ async def on_message(message):
 
     luxe = ["luxe.?time"]
 
+    shapes = ["shapes", "shape"]
+
     luxe_gif = [
         "https://gph.is/g/Z7dOq30",
         "https://gph.is/1jEmOk3",
@@ -446,14 +450,26 @@ async def on_message(message):
 
     if re.findall(r"(?=(" + "|".join(luxe) + r"))", message.content.lower()):
         rand = random.randint(0, 100)
-        if rand >= 75:
+        if rand >= 95:
+            response = random.choice(luxe_gif)
+            await message.channel.send(response)
+        elif rand >= 75:
             url = "https://api.giphy.com/v1/gifs/search?api_key=WlUS2Sd7uP61mfO02n3SUS8oUISZOF2b&q=Shower&limit=25"
             res = requests.request("GET", url)
             json_res = res.json()
             response = json_res["data"][random.randint(0, 24)]["url"]
             await message.channel.send(response)
-        elif rand >= 95:
-            response = random.choice(luxe_gif)
+    
+    if re.findall(r"(?=(" + "|".join(shapes) + r"))", message.content.lower()):
+        rand = random.randint(0, 100)
+        if rand >= 99:
+            response = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHNjbm13c3kwc2s4M3hkOWRxanQzZWhwY2MzbGhvNjA0Yzc1YWd0MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P3ataVxTgFOimQeC0S/giphy.gif"
+            await message.channel.send(response)
+        elif rand >= 90:
+            url = "https://api.giphy.com/v1/gifs/search?api_key=WlUS2Sd7uP61mfO02n3SUS8oUISZOF2b&q=shape-math-confused&limit=25"
+            res = requests.request("GET", url)
+            json_res = res.json()
+            response = json_res["data"][random.randint(0, 24)]["url"]
             await message.channel.send(response)
 
     if re.search("i missed the part where that's my problem", message.content.lower()):
@@ -468,4 +484,7 @@ async def on_message(message):
 #        await message.channel.send(response)
 #        await bot.process_commands(message)
 
-client.run("TOKEN_HERE")
+load_dotenv()
+discordToken = os.getenv("DISCORD_TOKEN")
+
+client.run(discordToken)
